@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { getProducts } from '../services/productoService';
+import ProductForm from './ProductForm';
 
 const ProductList = () =>{
     const [products, setProducts] = useState([]);
@@ -15,13 +16,18 @@ const ProductList = () =>{
         fetchProducts();
     }, []);
 
+    const handleProductAdded = (newProduct) =>{
+        setProducts([...products, newProduct])
+    };
+
     return (
         <div>
             <h1>Lista de productos</h1>
+            <ProductForm onProductAdded={handleProductAdded}/>
             <ul>
                 {products.map((product) => (
                     <li key={product.id}>
-                        {product.name} - {product.precio} Soles
+                        {product.nombre} - {product.precio} Soles
                     </li>
                 ))}
             </ul>
